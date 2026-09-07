@@ -1,6 +1,15 @@
-# 自行车传动实验室
+# 拜松的单车实验室 · Bison Bike Lab
 
-一个面向骑行新手的中文交互页面，演示牙盘、飞轮、轮周和踏频如何影响理论速度。
+面向骑行新手的交互网站：从传动和车架两个实验室，理解自行车的速度、几何与骑姿。
+
+## 页面
+
+- `/`：实验室首页，导航到两个同级实验室。
+- `/drivetrain`：原传动实验室，牙盘、飞轮、轮径和踏频的交互演示。
+- `/frame`：Stack / Reach / STR 动态测量、同 STR 不同尺寸对比，以及把组调整和选车基础。
+- 所有页面共享导航、Logo 和服务端访客 / 浏览计数器。
+
+网站 Logo 使用用户提供的拜松像素头像，原样保存在 `public/bison-logo.png`，用于页头、页尾和浏览器图标。
 
 - 五种牙盘、五种飞轮组、五种带明确轮胎规格的车轮。
 - 逐片选择飞轮齿数、0–140 rpm 踏频、公路/山地/折叠示例预设。
@@ -14,6 +23,7 @@
 
 ```powershell
 npm install
+npm run db:migrate:local
 npm run dev -- --host 127.0.0.1 --port 3000
 ```
 
@@ -24,7 +34,7 @@ npm run dev -- --host 127.0.0.1 --port 3000
 ```powershell
 npm run build
 npx tsc --noEmit
-node --test tests/drivetrain.test.ts
+npm test
 ```
 
 测试直接运行 TypeScript，需 Node.js 22.18+；较早的 22.x 需加 `--experimental-strip-types`。
@@ -33,4 +43,8 @@ node --test tests/drivetrain.test.ts
 
 核心参数与计算在 `lib/drivetrain.ts`，页面在 `app/page.tsx`，样式在 `app/globals.css`。托管元数据在 `.openai/hosting.json`。
 
-验证记录：构建与类型检查通过；计算测试覆盖全部提供的齿数组合、零踏频和轮径比较。通过浏览器 WebMCP 核验有效配置、无效齿数拒绝及状态保持；未进行截图或全套浏览器点击回归。
+本项目是纯前端静态站点：`npm run build` 在 `next.config.ts` 的 `output: 'export'` 模式下生成静态产物，可直接部署到 GitHub Pages 等静态托管。
+
+## 车架模型
+
+STR 使用常规车架 Stack / Reach，而非厂商 effective 手位坐标。示例分类不是行业阈值，不会由 STR 推导人体舒适度分数。紫色手位点采用页面明确列出的简化把组模型，并非装车或 fitting 建议。参考资料链接随页面提供。
