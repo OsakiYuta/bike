@@ -4,7 +4,8 @@ import { usePathname } from 'next/navigation';
 import { ArrowUpRight } from 'lucide-react';
 
 export function SiteHeader() {
-  const path = usePathname();
+  // trailingSlash 模式下 usePathname() 返回带尾斜杠的路径（如 /drivetrain/），归一化后再比较
+  const path = usePathname().replace(/\/+$/, '') || '/';
   return <header className="site-header shared-header"><Link className="brand" href="/" aria-label="拜松的单车实验室首页"><img className="brand-logo" src="/bike/bison-logo.png?v=2" alt="拜松的像素头像" width={54} height={54}/><span className="brand-copy"><strong>拜松的单车实验室</strong><span className="brand-en">Bison Bike Lab</span></span></Link><nav aria-label="实验室导航">{[{ href: '/', label: '实验室首页' }, { href: '/drivetrain', label: '传动实验室' }, { href: '/frame', label: '车架实验室' }].map(item => <Link key={item.href} href={item.href} className={path === item.href ? 'active' : ''} aria-current={path === item.href ? 'page' : undefined}>{item.label}</Link>)}</nav><span className="chapter">动手试试，就懂了 <ArrowUpRight size={14}/></span></header>;
 }
 
