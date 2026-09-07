@@ -39,8 +39,7 @@ function Drivetrain({ front, rear, wheel, cadence, playing, step, stepping, onSt
   const radius = (wheel.bsd + 2 * wheel.width) / 736 * 147;
   const rf = front * .96, rr = rear * .96, distance = 310;
   const angle = Math.acos((rf - rr) / distance);
-  const rx = 220 - rr * Math.cos(angle), ry = 222 - rr * Math.sin(angle);
-  const fx = 530 - rf * Math.cos(angle), fy = 222 - rf * Math.sin(angle);
+  const [rx, ry, fx, fy] = [220 - rr * Math.cos(angle), 222 - rr * Math.sin(angle), 530 - rf * Math.cos(angle), 222 - rf * Math.sin(angle)].map(n => Number(n.toFixed(3)));
   const chain = `M${rx},${ry} L${fx},${fy} A${rf},${rf} 0 1 1 ${fx},${444 - fy} L${rx},${444 - ry} A${rr},${rr} 0 0 1 ${rx},${ry}`;
   useEffect(() => {
     let frame = 0, last = 0;
@@ -77,7 +76,7 @@ function Drivetrain({ front, rear, wheel, cadence, playing, step, stepping, onSt
       <circle r={radius} fill="none" stroke="#73808c" strokeWidth="9"/>
       <circle r={radius - 7} fill="none" stroke="#354654" strokeWidth="2"/>
       <g ref={wheelRef}>
-        {Array.from({ length: 20 }, (_, i) => <line key={i} x1="0" y1="0" x2={Math.cos(i * Math.PI / 10) * (radius - 8)} y2={Math.sin(i * Math.PI / 10) * (radius - 8)} stroke="#627381" strokeWidth="1" opacity=".6"/>)}
+        {Array.from({ length: 20 }, (_, i) => <line key={i} x1="0" y1="0" x2={(Math.cos(i * Math.PI / 10) * (radius - 8)).toFixed(3)} y2={(Math.sin(i * Math.PI / 10) * (radius - 8)).toFixed(3)} stroke="#627381" strokeWidth="1" opacity=".6"/>)}
         <path d={`M0,${-radius} A${radius},${radius} 0 0 1 ${radius * .5},${-radius * .866}`} fill="none" stroke="#faf5ec" strokeWidth="8" />
         <circle cy={-radius} r="5" fill="#ff754b" />
       </g>
