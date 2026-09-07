@@ -45,6 +45,8 @@ npm test
 
 本项目是纯前端静态站点：`npm run build` 在 `next.config.ts` 的 `output: 'export'` 模式下生成静态产物，可直接部署到 GitHub Pages 等静态托管。
 
+线上地址：https://osakiyuta.github.io/bike/ （由 GitHub Actions 自动构建部署；注意 vinext 会把 basePath 目录嵌套进导出产物，工作流以 `dist/client/bike` 作为站点根目录。）
+
 ## 车架模型
 
 STR 使用常规车架 Stack / Reach，而非厂商 effective 手位坐标。示例分类不是行业阈值，不会由 STR 推导人体舒适度分数。紫色手位点采用页面明确列出的简化把组模型，并非装车或 fitting 建议。参考资料链接随页面提供。
