@@ -28,7 +28,7 @@ jobs:
       # vinext 静态导出会在产物中嵌套 basePath 目录（dist/client/bike），
       # 而 GitHub Pages 项目站的产物根目录即映射到 /bike/，
       # 因此以 dist/client/bike 作为站点根，并补入 404.html 与 .nojekyll。
-      - run: cp dist/client/404.html dist/client/.nojekyll dist/client/bike/
+      - run: cp dist/client/404.html dist/client/bike/ && touch dist/client/bike/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/client/bike
